@@ -1,46 +1,50 @@
-# You are given the heads of two sorted linked lists list1 and list2.
-
-# Merge the two lists in a one sorted list. The list should be made by splicing together the nodes of the first two lists.
-
-# Return the head of the merged linked list.
+# # Maximal Square
+# Given an m x n binary matrix filled with 0's and 1's, find the largest square containing only 1's and return its area.
 
  
 
 # Example 1:
 
 
-# Input: list1 = [1,2,4], list2 = [1,3,4]
-# Output: [1,1,2,3,4,4]
+# Input: matrix = [["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]
+# Output: 4
 # Example 2:
 
-# Input: list1 = [], list2 = []
-# Output: []
+
+# Input: matrix = [["0","1"],["1","0"]]
+# Output: 1
 # Example 3:
 
-# Input: list1 = [], list2 = [0]
-# Output: [0]
+# Input: matrix = [["0"]]
+# Output: 0
  
 
 # Constraints:
 
-# The number of nodes in both lists is in the range [0, 50].
-# -100 <= Node.val <= 100
-# Both list1 and list2 are sorted in non-decreasing order.
+# m == matrix.length
+# n == matrix[i].length
+# 1 <= m, n <= 300
+# matrix[i][j] is '0' or '1'
 
 class Solution(object):
-    def mergeTwoLists(self, list1, list2):
+    def maximalSquare(self, matrix):
         """
-        :type list1: Optional[ListNode]
-        :type list2: Optional[ListNode]
-        :rtype: Optional[ListNode]
+        :type matrix: List[List[str]]
+        :rtype: int
         """
-        if not list1:
-            return list2
-        if not list2:
-            return list1
-        if list1.val < list2.val:
-            list1.next = self.mergeTwoLists(list1.next, list2)
-            return list1
-        else:
-            list2.next = self.mergeTwoLists(list1, list2.next)
-            return list2
+        if not matrix:
+            return 0
+        m = len(matrix)
+        n = len(matrix[0])
+        dp = [[0] * n for _ in range(m)]
+        max_side = 0
+        for i in range(m):
+            for j in range(n):
+                if matrix[i][j] == '1':
+                    if i == 0 or j == 0:
+                        dp[i][j] = 1
+                    else:
+                        dp[i][j] = min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]) + 1
+                max_side = max(max_side, dp[i][j])
+        return max_side * max_side
+      
