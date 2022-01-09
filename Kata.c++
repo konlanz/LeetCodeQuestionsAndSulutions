@@ -2,19 +2,3 @@
 
 // Examples: spinWords( "Hey fellow warriors" ) => returns "Hey wollef sroirraw" spinWords( "This is a test") => returns "This is a test" spinWords( "This is another test" )=> returns "This is rehtona test"
 
-public class SpinWords {
-
-  public String spinWords(String sentence) {
-    String[] words = sentence.split(" ");
-    StringBuilder sb = new StringBuilder();
-    for (String word : words) {
-      if (word.length() >= 5) {
-        sb.append(new StringBuilder(word).reverse());
-      } else {
-        sb.append(word);
-      }
-      sb.append(" ");
-    }
-    return sb.toString().trim();
-  }
-}
